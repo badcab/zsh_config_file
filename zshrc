@@ -47,26 +47,25 @@ ORANGE=$'\033[38;5;173m'
 
 if [[ "$SYSTEM_TYPE" = "FREEBSD" ]]; then
 	export EDITOR=ee
-	alias update='sudo portsnap fetch update && sudo portmanager -a && sudo freebsd-update fetch install'
+	alias update='sudo portsnap fetch update && sudo freebsd-update fetch install && sudo portmaster -a'
 	alias install='sudo pkg install'
-	alias s_update=''
-	alias zshrc='ee ~/.zshrc'
+	alias s_update='sudo svn up /usr/src'
+	
 elif [[ "$SYSTEM_TYPE" = "FEDORA" ]]; then
 	export EDITOR=nano
 	alias ee='nano'
 	alias update='sudo yum -y update --skip-broken'
 	alias install='sudo yum install'
 	alias search='yum search'
-	alias zshrc='nano ~/.zshrc'
 elif [[ "$SYSTEM_TYPE" = "DEBIAN_PI" ]]; then
 	export EDITOR=nano
 	alias ee='nano'
 	alias update='sudo apt-get update && sudo apt-get upgrade && sudo rpi-update'
 	alias install='sudo apt-get install'
-	alias zshrc='nano ~/.zshrc'
 fi
 
 #general aliases
+alias zshrc="$EDITOR ~/.zshrc"
 alias ls='ls --color'
 alias la='ls -a --color'
 alias ll='ls -l --color'
@@ -93,4 +92,4 @@ function precmd() { export PROMPT="%{$GREEN%}%~%{$YELLOW%}$(parse_git_branch)%{$
 
 source ~/.zsh_include
 $(which cat) ~/.art
-fortune -s 2> /dev/null 
+$(which fortune) -s 2> /dev/null 
