@@ -1,3 +1,5 @@
+#Edit ~/.zsh_include to add aliases
+#Edit ~/.art to make a motd type thing
 zmodload zsh/complist
 autoload -U compinit && compinit
 setopt autocd
@@ -27,19 +29,19 @@ BLUE=$'\033[38;5;111m'
 YELLOW=$'\033[38;5;228m'
 ORANGE=$'\033[38;5;173m'
 
-if [[ $SYSTEM_TYPE = 'FREEBSD' ]]; then
+if [[ "$SYSTEM_TYPE" = "FREEBSD" ]]; then
 	alias update='sudo portsnap fetch update && sudo portmanager -a && sudo freebsd-update fetch install'
 	alias install='sudo pkg install'
 	alias s_update=''
 	alias zshrc='ee ~/.zshrc'
-elif [[ $SYSTEM_TYPE = 'FEDORA' ]]; then
+elif [[ "$SYSTEM_TYPE" = "FEDORA" ]]; then
 	export EDITOR=nano
 	alias ee='nano'
 	alias update='sudo yum -y update --skip-broken'
 	alias install='sudo yum install'
 	alias search='yum search'
 	alias zshrc='nano ~/.zshrc'
-elif [[ $SYSTEM_TYPE = 'DEBIAN_PI' ]]; then
+elif [[ "$SYSTEM_TYPE" = "DEBIAN_PI" ]]; then
 	export EDITOR=nano
 	alias ee='nano'
 	alias update='sudo apt-get update && sudo apt-get upgrade && sudo rpi-update'
@@ -57,21 +59,37 @@ alias clear='clear && source ~/.zshrc'
 # Stuff for git
 alias add='git add --all'
 alias commit='git commit -a'
+alias status='git status'
+alias projectSize='git ls-files | xargs wc -l'
+#to use these alias install git and run:
+#git clone https://github.com/chrisjaure/git-lava.git
+#then follow the install instructions 
 alias diverge='git lava diverge -b'
 alias melt='git lava melt'
 alias survey='git lava survey'
 alias erupt='git lava erupt -d'
 alias flow='git lava flow'
-alias status='git status'
-alias projectSize='git ls-files | xargs wc -l'
+
 
 parse_git_branch () {
     git branch 2> /dev/null | grep "*" | sed -e 's/* \(.*\)/ (\1)/g'
 }
 
+#here I should add the hg prompt stuff
+
 function precmd() {
-    export PROMPT="%{$GREEN%}%~%{$YELLOW%}$(parse_git_branch)%{$RED%} pi> %{$GREEN%}"
+    export PROMPT="%{$GREEN%}%~%{$YELLOW%}$(parse_git_branch)%{$RED%}> %{$GREEN%}"
 }
 
-#< ~/.art
-#fortune -s
+if [ ! -f ~/.zsh_include ]; then
+    touch ~/.zsh_include
+fi
+
+if [ ! -f ~/.art ]; then
+    touch ~/.art
+fi
+
+source ~/.zsh_include
+< ~/.art
+
+fortune -s 2> /dev/null 
