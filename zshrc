@@ -1,5 +1,10 @@
 #Edit ~/.zsh_include to add aliases
 #Edit ~/.art to make a motd type thing
+
+#first run notes
+#chsh -s $(which zsh)
+#zsh screen php5 git wget ccrypt sudo nano 
+ 
 zmodload zsh/complist
 autoload -U compinit && compinit
 setopt autocd
@@ -26,16 +31,11 @@ SAVEHIST=1000
 bindkey -e
 
 #Alt-S inserts "sudo " at the start of line:
-insert_sudo () { 
-	zle beginning-of-line; zle -U "sudo " 
-}
+insert_sudo () { zle beginning-of-line; zle -U "sudo " }
 zle -N insert-sudo insert_sudo
 bindkey "^[s" insert-sudo
 
-random(){ 
-	< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c 64; 
-	echo;
-}
+random(){ < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c 64; echo; }
 
 SYSTEM_TYPE = 'DEBIAN_PI'
 BLACK=$'\033[0m'
@@ -79,24 +79,17 @@ alias add='git add --all'
 alias commit='git commit -a'
 alias status='git status'
 alias projectSize='git ls-files | xargs wc -l'
-#to use these alias install git and run:
-#git clone https://github.com/chrisjaure/git-lava.git
-#then follow the install instructions 
+alias branch='git branch'
+#to use these aliases run: git clone https://github.com/chrisjaure/git-lava.git
 alias diverge='git lava diverge -b'
 alias melt='git lava melt'
 alias survey='git lava survey'
 alias erupt='git lava erupt -d'
 alias flow='git lava flow'
 
-parse_git_branch () {
-    git branch 2> /dev/null | grep "*" | sed -e 's/* \(.*\)/ (\1)/g'
-}
+parse_git_branch () { git branch 2> /dev/null | grep "*" | sed -e 's/* \(.*\)/ (\1)/g' }
 
-#here I should add the hg prompt stuff
-
-function precmd() {
-    export PROMPT="%{$GREEN%}%~%{$YELLOW%}$(parse_git_branch)%{$RED%}> %{$GREEN%}"
-}
+function precmd() { export PROMPT="%{$GREEN%}%~%{$YELLOW%}$(parse_git_branch)%{$RED%}> %{$GREEN%}" }
 
 source ~/.zsh_include
 < ~/.art
