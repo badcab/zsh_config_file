@@ -37,7 +37,7 @@ bindkey "^[s" insert-sudo
 
 random(){ < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c 64; echo; }
 
-SYSTEM_TYPE = 'DEBIAN_PI'
+SYSTEM_TYPE='DEBIAN_PI'
 BLACK=$'\033[0m'
 RED=$'\033[38;5;167m'
 GREEN=$'\033[38;5;71m'
@@ -92,5 +92,5 @@ parse_git_branch () { git branch 2> /dev/null | grep "*" | sed -e 's/* \(.*\)/ (
 function precmd() { export PROMPT="%{$GREEN%}%~%{$YELLOW%}$(parse_git_branch)%{$RED%}> %{$GREEN%}" }
 
 source ~/.zsh_include
-< ~/.art
+$(which cat) ~/.art
 fortune -s 2> /dev/null 
