@@ -16,10 +16,26 @@ zstyle ':completion:*:manuals.(^1)' insert-sections true
 zstyle ':completion:*' menu select
 zstyle ':completion:*' verbose yes
 
+touch ~/.zsh_include
+touch ~/.art
+touch ~/.histfile
+
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 bindkey -e
+
+#Alt-S inserts "sudo " at the start of line:
+insert_sudo () { 
+	zle beginning-of-line; zle -U "sudo " 
+}
+zle -N insert-sudo insert_sudo
+bindkey "^[s" insert-sudo
+
+random(){ 
+	< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c 64; 
+	echo;
+}
 
 SYSTEM_TYPE = 'DEBIAN_PI'
 BLACK=$'\033[0m'
@@ -30,6 +46,7 @@ YELLOW=$'\033[38;5;228m'
 ORANGE=$'\033[38;5;173m'
 
 if [[ "$SYSTEM_TYPE" = "FREEBSD" ]]; then
+	export EDITOR=ee
 	alias update='sudo portsnap fetch update && sudo portmanager -a && sudo freebsd-update fetch install'
 	alias install='sudo pkg install'
 	alias s_update=''
@@ -50,8 +67,9 @@ elif [[ "$SYSTEM_TYPE" = "DEBIAN_PI" ]]; then
 fi
 
 #general aliases
-alias la='ls -a'
-alias ll='ls -l'
+alias ls='ls --color'
+alias la='ls -a --color'
+alias ll='ls -l --color'
 alias screen='screen -R'
 alias fixit='sudo tail -f -n 25 /var/log/httpd/error_log | grep 127.0.0.1'
 alias clear='clear && source ~/.zshrc'
@@ -70,7 +88,6 @@ alias survey='git lava survey'
 alias erupt='git lava erupt -d'
 alias flow='git lava flow'
 
-
 parse_git_branch () {
     git branch 2> /dev/null | grep "*" | sed -e 's/* \(.*\)/ (\1)/g'
 }
@@ -81,15 +98,6 @@ function precmd() {
     export PROMPT="%{$GREEN%}%~%{$YELLOW%}$(parse_git_branch)%{$RED%}> %{$GREEN%}"
 }
 
-if [ ! -f ~/.zsh_include ]; then
-    touch ~/.zsh_include
-fi
-
-if [ ! -f ~/.art ]; then
-    touch ~/.art
-fi
-
 source ~/.zsh_include
 < ~/.art
-
 fortune -s 2> /dev/null 
