@@ -24,7 +24,7 @@ bindkey -e
 #FreeBSD
 #alias update='sudo portsnap fetch update && sudo portmanager -a && sudo freebsd-update fetch install'
 #alias install='sudo pkg install'
-
+#alias s_update=''
 
 #Fedora
 #export EDITOR=nano
@@ -55,6 +55,7 @@ alias diverge='git lava diverge -b'
 alias melt='git lava melt'
 alias survey='git lava survey'
 alias erupt='git lava erupt -d'
+alias flow='git lava flow'
 alias status='git status'
 alias projectSize='git ls-files | xargs wc -l'
 
