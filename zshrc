@@ -22,8 +22,8 @@ SAVEHIST=1000
 bindkey -e
 
 #FreeBSD
-#alias update=''
-#alias install=''
+#alias update='sudo portsnap fetch update && sudo portmanager -a && sudo freebsd-update fetch install'
+#alias install='sudo pkg install'
 
 
 #Fedora
