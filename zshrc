@@ -50,7 +50,6 @@ if [[ "$SYSTEM_TYPE" = "FREEBSD" ]]; then
 	alias update='sudo portsnap fetch update && sudo freebsd-update fetch install && sudo portmaster -a'
 	alias install='sudo pkg install'
 	alias s_update='sudo svn up /usr/src'
-	
 elif [[ "$SYSTEM_TYPE" = "FEDORA" ]]; then
 	export EDITOR=nano
 	alias ee='nano'
@@ -90,6 +89,6 @@ parse_git_branch () { git branch 2> /dev/null | grep "*" | sed -e 's/* \(.*\)/ (
 
 function precmd() { export PROMPT="%{$GREEN%}%~%{$YELLOW%}$(parse_git_branch)%{$RED%}> %{$GREEN%}" }
 
-source ~/.zsh_include
 $(which cat) ~/.art
-$(which fortune) -s 2> /dev/null 
+$(which fortune) -s 2> /dev/null
+source ~/.zsh_include
