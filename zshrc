@@ -71,6 +71,7 @@ alias ll='ls -l --color'
 alias screen='screen -R'
 alias fixit='sudo tail -f -n 25 /var/log/httpd/error_log | grep 127.0.0.1'
 alias clear='clear && source ~/.zshrc'
+alias sudi='sudo -i'
 
 # Stuff for git
 alias add='git add --all'
