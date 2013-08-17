@@ -47,18 +47,21 @@ ORANGE=$'\033[38;5;173m'
 
 if [[ "$SYSTEM_TYPE" = "FREEBSD" ]]; then
 	export EDITOR=ee
+	alias ei='ee -i'
 	alias update='sudo portsnap fetch update && sudo freebsd-update fetch install && sudo portmaster -a'
 	alias install='sudo pkg install'
 	alias s_update='sudo svn up /usr/src'
 elif [[ "$SYSTEM_TYPE" = "FEDORA" ]]; then
 	export EDITOR=nano
 	alias ee='nano'
+	alias nano='nano -i'
 	alias update='sudo yum -y update --skip-broken'
 	alias install='sudo yum install'
 	alias search='yum search'
 elif [[ "$SYSTEM_TYPE" = "DEBIAN_PI" ]]; then
 	export EDITOR=nano
 	alias ee='nano'
+	alias nano='nano -i'
 	alias update='sudo apt-get update && sudo apt-get upgrade && sudo rpi-update'
 	alias install='sudo apt-get install'
 fi
