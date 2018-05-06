@@ -37,7 +37,7 @@ bindkey "^[s" insert-sudo
 
 random(){ < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c 64; echo; }
 
-SYSTEM_TYPE='DEBIAN_PI'
+SYSTEM_TYPE='FEDORA'
 BLACK=$'\033[0m'
 RED=$'\033[38;5;167m'
 GREEN=$'\033[38;5;71m'
@@ -55,8 +55,8 @@ elif [[ "$SYSTEM_TYPE" = "FEDORA" ]]; then
 	export EDITOR=nano
 	alias ee='nano'
 	alias nano='nano -i'
-	alias update='sudo yum -y update --skip-broken'
-	alias install='sudo yum install'
+	alias update='sudo dnf -y update --skip-broken'
+	alias install='sudo dnf install'
 	alias search='yum search'
 elif [[ "$SYSTEM_TYPE" = "DEBIAN_PI" ]]; then
 	export EDITOR=nano
@@ -82,12 +82,7 @@ alias commit='git commit -a'
 alias status='git status'
 alias projectSize='git ls-files | xargs wc -l'
 alias branch='git branch'
-#to use these aliases run: git clone https://github.com/chrisjaure/git-lava.git
-alias diverge='git lava diverge -b'
-alias melt='git lava melt'
-alias survey='git lava survey'
-alias erupt='git lava erupt -d'
-alias flow='git lava flow'
+
 
 parse_git_branch () { git branch 2> /dev/null | grep "*" | sed -e 's/* \(.*\)/ (\1)/g' }
 
